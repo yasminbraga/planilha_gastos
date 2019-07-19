@@ -10,4 +10,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 
-from app.controllers import index
+from app.controllers import index, categorias

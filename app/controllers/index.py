@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request
-from app.models.carteira import Carteira
+from app.models.models import Carteira
 from app import db
 
 

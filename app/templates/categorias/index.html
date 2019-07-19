@@ -1,0 +1,23 @@
+{% extends './layout.html'%}
+
+{% block content %}
+    <div>
+        <h4>Categorias <a href="{{ url_for('new_categoria')}}" class="badge badge-primary">Nova Categoria</a></h4>
+    </div>
+    <table class="table">
+        <thead>
+            <th>#ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id}}</td>
+                <td>{{categoria.titulo}}</td>
+                <td>{{categoria.descricao}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
