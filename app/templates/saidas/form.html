@@ -1,0 +1,40 @@
+<form action="" method="post">
+    <div class="row mb-3">
+        <div class="col-3">
+            <label>Valor</label>
+            <input class="form-control" type="number" name="valor" min="0" value="{{ saida.valor if saida else '' }}" step="0.01" required>
+        </div>
+
+        <div class="col-3">
+                <label>Data</label>
+            <input class="form-control" type="date" name="data"  value="{{ saida.data.strftime('%Y-%m-%d') if saida else '' }}" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <label>Categoria</label>
+                <a href="{{ url_for('new_categoria') }}"> 
+                    <span data-feather="plus"></span>
+                    Nova Categoria</a>
+            </div>
+            <select class="form-control" name="categoria_id">
+                <option disabled {{ 'selected' if not saida else '' }}>Selecione uma categoria</option>
+                {% for categoria in categorias %}
+                    <option value="{{categoria.id}}" {{ 'selected' if (saida and saida.categoria_id == categoria.id) else False }}>{{categoria.titulo}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Descrição</label>
+            <textarea class="form-control" name="descricao" id="" cols="30" rows="5" maxlength="20">{{ saida.descricao if saida else '' }}</textarea>
+        </div>
+    </div>   
+
+    <button class="btn btn-primary">Salvar</button>
+
+    </form>

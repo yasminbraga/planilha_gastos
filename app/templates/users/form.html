@@ -1,0 +1,31 @@
+<form action="" method="post">
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Nome</label>
+            <input class="form-control" type="text" name="name" value="{% if user %} {{user.name}} {% endif %}" required>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Email</label>
+            <input class="form-control" type="text" name="email" value="{% if user %} {{user.email}} {% endif %}" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Username</label>
+            <input class="form-control" type="text" name="username" value="{% if user %} {{user.username}} {% endif %}" required>            
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Password</label>
+            <input class="form-control" type="password" name="password" value="{% if user %} {{user.password}} {% endif %}" required>                        
+        </div>
+    </div>
+    
+    <button class="btn btn-primary">Salvar</button>
+</form>

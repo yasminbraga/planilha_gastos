@@ -1,0 +1,19 @@
+<form action="" method="post">
+    <div class="row mb-3">
+        <div class="col-3">
+            <label>Valor</label>
+            <input class="form-control" type="number" name="valor" min="0" value="{{ entrada.valor if entrada else '' }}" step="0.01" required>
+        </div>
+        <div class="col-3">
+                <label>Data</label>
+            <input class="form-control" type="date" name="data"  value="{{ entrada.data.strftime('%Y-%m-%d') if entrada else '' }} " required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+            <label>Descrição</label>
+            <textarea class="form-control" name="descricao" id="" cols="30" rows="5" maxlength="20">{{ entrada.descricao if entrada else '' }}</textarea>
+        </div>
+    </div>   
+    <button class="btn btn-primary">Salvar</button>
+</form>

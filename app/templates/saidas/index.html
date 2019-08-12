@@ -1,0 +1,42 @@
+{% extends './layout.html'%}
+
+{% block page_title %}
+    Saidas
+{% endblock %}
+
+{% block link_new %}
+    <a class="btn btn-sm btn-primary" href="{{ url_for('new_saidas')}}">
+        <span data-feather="plus"></span>
+        Nova Saida
+    </a>
+{% endblock %}
+
+{% block content %}
+    <table class="table table-light table-bordered">
+        <thead class="thead-light">
+            <th class="text-center">Data</th>
+            <th class="text-left">Descricao</th>
+            <th class="text-center">Categoria</th>
+            <th class="text-right">Valor (R$)</th>
+            <th class="text-center" colspan="2">Ações</th>
+        </thead>
+        <tbody>
+            {% for saida in saidas %}
+                <tr>
+                    <td class="text-center align-middle">{{ saida.data.strftime("%Y-%m-%d") }}</td>
+                    <td class="text-left align-middle">{{ saida.descricao }}</td>
+                    <td class="text-center align-middle">{{ saida.categoria.titulo }}</td>
+                    <td class="text-right align-middle">{{ saida.valor }}</td>
+                    <td class="text-center align-middle">
+                        <a class="btn btn-link m-0 py-0" href="{{url_for('edit_saida', id=saida.id)}}">
+                            <span data-feather="edit">Editar</span>
+                        </a>
+                        <button class="btn btn-link m-0 py-0" onclick=deletar("{{url_for('delete_saida', id=saida.id)}}")>
+                            <span data-feather="trash-2" class="text-danger">Deletar</span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

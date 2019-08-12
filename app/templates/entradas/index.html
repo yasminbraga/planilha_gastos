@@ -1,0 +1,40 @@
+{% extends './layout.html'%}
+
+{% block page_title %}
+    Entradas
+{% endblock %}
+
+{% block link_new %}
+    <a class="btn btn-sm btn-primary" href="{{ url_for('new_entrada')}}">
+        <span data-feather="plus"></span>
+        Nova Entrada
+    </a>
+{% endblock %}
+
+{% block content %}
+    <table class="table table-light table-bordered">
+        <thead class="thead-light">
+            <th class="text-center">Data</th>
+            <th class="text-left">Descricao</th>
+            <th class="text-right">Valor (R$)</th>
+            <th class="text-center" colspan="2">Ações</th>
+        </thead>
+        <tbody>
+            {% for entrada in entradas %}
+                <tr>
+                    <td class="text-center align-middle">{{ entrada.data.strftime("%Y-%m-%d") }}</td>
+                    <td class="text-left align-middle">{{ entrada.descricao }}</td>
+                    <td class="text-right align-middle">{{ entrada.valor }}</td>
+                    <td class="text-center align-middle">
+                        <a class="btn btn-link m-0 py-0" href="{{url_for('edit_entrada', id=entrada.id)}}">
+                            <span data-feather="edit">Editar</span>
+                        </a>
+                        <button class="btn btn-link m-0 py-0" onclick=deletar("{{url_for('delete_entrada', id=entrada.id)}}")>
+                            <span data-feather="trash-2" class="text-danger">Deletar</span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,23 +1,38 @@
 {% extends './layout.html'%}
 
+{% block page_title %}
+    Categorias
+    
+    <a class="badge badge-primary"></a>
+{% endblock %}
+
+
+{% block link_new %}
+    <a class="btn btn-sm btn-primary" href="{{ url_for('new_categoria')}}">
+        <span data-feather="plus"></span>
+        Nova Categoria
+    </a>
+{% endblock %}
+
+
 {% block content %}
-    <div>
-        <h4>Categorias <a href="{{ url_for('new_categoria')}}" class="badge badge-primary">Nova Categoria</a></h4>
-    </div>
-    <table class="table">
-        <thead>
-            <th>#ID</th>
-            <th>Título</th>
-            <th>Descrição</th>
-        </thead>
-        <tbody>
-            {% for categoria in categorias %}
-            <tr>
-                <td>{{ categoria.id}}</td>
-                <td>{{categoria.titulo}}</td>
-                <td>{{categoria.descricao}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% for categoria in categorias %}
+        <div class="card float-left mb-3 ml-4" style="width: 12rem">
+            <div class="card-body">
+                <div class="card-title">
+                    <span data-feather="tag"></span>
+                    <span class="text-muted text-uppercase" style="font-size: 14px;">
+                        {{ categoria.titulo }}
+                    </span>   
+                </div>
+                <p class="card-text">{{ categoria.descricao }}</p>
+                <a class="btn float-left card-link btn-link" href="{{url_for('edit_categoria', id=categoria.id)}}">
+                    <span data-feather="edit">Editar</span>
+                </a>
+                <button class="btn float-right card-link btn-link" onclick=deletar("{{url_for('delete_categoria', id=categoria.id)}}")>
+                    <span data-feather="trash-2" class="text-danger">Deletar</span>
+                </button>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
