@@ -1,19 +1,23 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from app import app, db
-from app.models.models import Categoria, Carteira
+from app.models.models import Categoria
+from app.controllers.login import login_required
+
 
 @app.route('/categorias')
+@login_required
 def index_categorias():
-    categorias = Categoria.query.all()
+    categorias = Categoria.query.filter(Categoria.user_id == session.get('user_id'))
     return render_template('categorias/index.html', categorias=categorias)
 
 @app.route('/categorias/new', methods=['GET','POST'])
+@login_required
 def new_categoria():
 
     if request.method == 'POST':
         titulo = request.form.get('titulo')
         descricao = request.form.get('descricao')
-        categoria = Categoria(titulo=titulo, descricao=descricao)
+        categoria = Categoria(titulo=titulo, descricao=descricao, user_id=session.get('user_id'))
         db.session.add(categoria)
         db.session.commit()
         flash("Categoria criada", "success")
@@ -21,6 +25,7 @@ def new_categoria():
     return render_template('categorias/new.html')
 
 @app.route('/categorias/edit/<int:id>', methods=['GET','POST'])
+@login_required
 def edit_categoria(id):
     categoria = Categoria.query.get(id)
     if request.method == 'POST':
@@ -35,10 +40,9 @@ def edit_categoria(id):
 
 
 @app.route('/categorias/delete/<int:id>')
+@login_required
 def delete_categoria(id):
     categoria = Categoria.query.get(id)
-    for saida in categoria.saidas:
-        Carteira.query.first().update(float(saida.valor))
 
     db.session.delete(categoria)
     db.session.commit()

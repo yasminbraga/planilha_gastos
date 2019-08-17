@@ -14,7 +14,7 @@
                 <div class="card-body py-2 px-3">
                     <span class="text-muted text-uppercase" style="font-size: 14px;">Saldo Atual</span>
                     <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ {{ carteira.saldo }}</h1>
+                        <h1 class="h4 font-weight-light">R$ {{ saldo_total }}</h1>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="card-body py-2 px-3">
                     <span class="text-muted text-uppercase" style="font-size: 14px;">Saída Total</span>
                     <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ {{ saida_total }}</h1>
+                        <h1 class="h4 font-weight-light">R$ {{ saida_total or 0.0 }}</h1>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,9 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from app import app, db
-from app.models.models import Categoria, Saida, Carteira, Movimento
+from app.models.models import Categoria, Saida, Movimento
 from datetime import datetime
+from app.controllers.login import login_required
+
 
 
 def nova_saida(saida, form):
@@ -14,20 +16,21 @@ def nova_saida(saida, form):
 
 
 @app.route('/saidas')
+@login_required
 def index_saidas():
     saidas = Saida.query.all()
     return render_template('saidas/index.html',saidas=saidas)
 
 
 @app.route('/saidas/new', methods=['GET','POST'])
+@login_required
 def new_saidas():
     categorias = Categoria.query.all()
     if request.method == 'POST':
-        saida = nova_saida(Saida(),request.form)
-        Carteira.query.first().update(-float(saida.valor))
+        saida = nova_saida(Saida(user_id=session.get("user_id")),request.form)
         db.session.add(saida)
         db.session.commit()
-        movimento = Movimento(tipo='saida', saida_id=saida.id)
+        movimento = Movimento(tipo='saida', saida_id=saida.id,user_id=session.get('user_id'), saldo=-float(saida.valor))
         db.session.add(movimento)
         db.session.commit()
         flash("Saida criada", "success")
@@ -35,6 +38,7 @@ def new_saidas():
     return render_template('saidas/new.html', categorias=categorias)
 
 @app.route('/saidas/edit/<int:id>', methods=['GET','POST'])
+@login_required
 def edit_saida(id):
 
     categorias = Categoria.query.all()
@@ -42,18 +46,18 @@ def edit_saida(id):
 
     if request.method == 'POST':
         saida = nova_saida(saida, request.form)
-        Carteira.query.first().update(-float(saida.valor))
         db.session.add(saida)
         db.session.commit()
+        movimento.query.filter(Movimento.saida_id == saida.id).first().update(-float(saida.valor))
         flash("Saida editada", "success")
         return redirect(url_for('index_saidas'))
     
     return render_template('saidas/edit.html', saida=saida, categorias=categorias)
 
 @app.route('/saidas/delete/<int:id>')
+@login_required
 def delete_saida(id):
     saida = Saida.query.get(id)
-    Carteira.query.first().update(float(saida.valor))
     db.session.delete(saida)
     db.session.commit()
     flash("Saida deletada", "success")

@@ -11,14 +11,13 @@
         </ul>
     </nav>
     <div class="row d-flex justify-content-center align-items-center">
-
         <div class="jumbotron col-sm-6">
             <h1 class="display-4">Bem-vindo ao Gastei!</h1>
             <p class="lead">Uma planilha fincanceira para um maior controle sobre todas as suas saídas e entradas.</p>
             <hr class="my-4">
             <p>Comece agora</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Cadastrar</a>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Entrar</a>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('new_users') }}" role="button">Cadastrar</a>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Entrar</a>
         </div>
     </div>
 </body>
