@@ -1,3 +1,4 @@
+import os
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
@@ -12,7 +13,7 @@ class Development(Config):
     
 
 class Production(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgres://kxcbaqawtgphbo:159637d0dce0975c4bdf922ee2e38c7d4749b91641c334d27c86a6b48fa707ea@ec2-107-20-230-70.compute-1.amazonaws.com:5432/d7oe0tn3n1tmnp'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     ENV = 'production'
 
 
