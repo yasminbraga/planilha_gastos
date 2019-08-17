@@ -1,2 +1,3 @@
-run: flask db migrate && flask db upgrade
+run: flask db migrate
+run: flask db upgrade
 web: python run.py
