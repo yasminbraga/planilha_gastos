@@ -1,116 +1,123 @@
 {% extends './layout.html'%}
 
-{% block page_title %}
-    Dashboard 
-{% endblock %}
-
 {% block content %}
 
-    <div class="col-8 float-left">
-        <div class="row">
+<div class="col-12 p-0 float-left mt-4 mt-lg-0">
+		<div class=" mb-3">
+				<h3 class="lead text-muted">Resumo de Entradas e Saídas</h3>
+			</div>
+	<div class="card-deck">
+		<div
+			class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-primary shadow-sm mb-3 px-2"
+			style="height: 100px;">
+			<div class="card-body py-2 px-3">
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Saldo Atual</span>
+				<div class="card-text text-center">
+					<h1 class="h4 font-weight-light mt-2">R$ {{ saldo_total }}</h1>
+				</div>
+			</div>
+		</div>
+		<div
+			class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-danger shadow-sm mb-3 px-2"
+			style="height: 100px;">
+			<div class="card-body py-2 px-3">
+				{% if ultima_saida %}
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Última Saída</span>
+				<div class="card-text text-center">
+					<h1 class="text-danger h4 font-weight-light mt-2">R$ -{{ ultima_saida.valor }}</h1>
+				</div>
+				<span class="text-muted text-uppercase float-right" style="font-size: 14px;">
+					<span data-feather='tag'></span>
+					{{ ultima_saida.categoria.titulo }}
+				</span>
+				{% else %}
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Última Saída</span>
+				<div class="card-text text-center">
+					<h1 class="h4 font-weight-light">R$ 0.0</h1>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div
+			class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-success shadow-sm mb-3 px-2"
+			style="height: 100px;">
+			<div class="card-body py-2 px-3">
+				{% if ultima_entrada %}
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Última Entrada</span>
+				<div class="card-text text-center">
+					<h1 class="text-success h4 font-weight-light mt-2">R$ +{{ ultima_entrada.valor }}</h1>
+				</div>
+				{% else %}
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Última Entrada</span>
+				<div class="card-text text-center">
+					<h1 class="h4 font-weight-light">R$ 0.0</h1>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div
+			class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-primary shadow-sm mb-3 px-2"
+			style="height: 100px;">
+			<div class="card-body py-2 px-3">
+				<span class="text-muted text-uppercase" style="font-size: 14px;">Saída Total</span>
+				<div class="card-text text-center">
+					<h1 class="h4 font-weight-light mt-2">R$ {{ saida_total or 0.0 }}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-        
-            <div class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-primary mr-2 shadow-sm mb-2" style="width:14rem; height:96px;">
-                <div class="card-body py-2 px-3">
-                    <span class="text-muted text-uppercase" style="font-size: 14px;">Saldo Atual</span>
-                    <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ {{ saldo_total }}</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-danger mr-2 shadow-sm mb-2" style="width:14rem; height:96px;">
-                <div class="card-body py-2 px-3">
-                    {% if ultima_saida %}
-                        <span class="text-muted text-uppercase" style="font-size: 14px;">Última Saída</span>
-                        <div class="card-text text-center">
-                            <h1 class="text-danger h4 font-weight-light">R$ -{{ ultima_saida.valor }}</h1>
-                        </div>
-                        <span class="text-muted text-uppercase float-right" style="font-size: 14px;">
-                            <span data-feather='tag'></span>
-                            {{ ultima_saida.categoria.titulo }}
-                        </span>
-                    {% else %}
-                    <span class="text-muted text-uppercase" style="font-size: 14px;">Última Saída</span>
-                    <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ 0.0</h1>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-success mr-2 shadow-sm mb-2" style="width:14rem; height:96px;">
-                <div class="card-body py-2 px-3">
-                    {% if ultima_entrada %}
-                        <span class="text-muted text-uppercase" style="font-size: 14px;">Última Entrada</span>
-                        <div class="card-text text-center">
-                            <h1 class="text-success h4 font-weight-light">R$ +{{ ultima_entrada.valor }}</h1>
-                        </div>
-                    {% else %}
-                    <span class="text-muted text-uppercase" style="font-size: 14px;">Última Entrada</span>
-                    <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ 0.0</h1>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="card float-left border-right-0 border-left-0 border-bottom-0 border-top border-primary mr-2 shadow-sm mb-2" style="width:14rem; height:96px;">
-                <div class="card-body py-2 px-3">
-                    <span class="text-muted text-uppercase" style="font-size: 14px;">Saída Total</span>
-                    <div class="card-text text-center">
-                        <h1 class="h4 font-weight-light">R$ {{ saida_total or 0.0 }}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="col p-0">
+	<h3 class="lead text-muted">Total por Categoria</h3>
+	{% for saida_categoria in saidas_categoria %}
+	<div class="card shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-warning mr-2 mb-2 w-100 w-lg-25" style="width: 14rem;">
+		<div class="card-body">
+			<div class="d-flex justify-content-between">
+				<span class="text-muted text-uppercase">{{ saida_categoria[0] }}</span>
+				<div class="p-2 bg-warning rounded d-flex" style="width: 32px; height: 32px;">
+					<span class="text-white" data-feather="tag"></span>
+				</div>
+			</div>
+			<div class="card-text">
+				<span class="lead font-weight-normal text-dark">
+					R$ {{ saida_categoria[1] }}
+				</span>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
 
-        <h3 class="lead text-muted my-3">Total por Categoria</h3>
-        <div class="row">
-            {% for saida_categoria in saidas_categoria %}
-                <div class="card shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-warning mr-2 mb-2" style="width: 14rem;">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted text-uppercase">{{ saida_categoria[0] }}</span>
-                            <div class="p-2 bg-warning rounded d-flex" style="width: 32px; height: 32px;">
-                                <span class="text-white" data-feather="tag"></span>
-                            </div>
-                        </div>
-                        <div class="card-text">
-                            <span class="lead font-weight-normal text-dark">
-                                R$ {{ saida_categoria[1] }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
 
-    <div class="col-4 float-left border-left px-4">
-        <div class=" mb-3">
-            <h3 class="lead text-muted">Últimos Movimentos</h3>
-        </div>
-        {% for movimento in movimentos %}
-            <div class="card mb-2 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-{{ 'success' if movimento.tipo =='entrada' else 'danger' }}">
-                <div class="card-body py-3 d-flex justify-content-between align-items-center">
-                    {% if movimento.tipo == 'saida' %}
-                        <div>
-                            <span class="lead text-danger" style="font-size: 16px;">R$ -{{ movimento.saida.valor }}</span>
-                        </div>
-                        <div>
-                            <span class="lead text-muted text-uppercase" style="font-size: 15px;">{{ movimento.saida.categoria.titulo }}</span>
-                            <span class="text-danger ml-4" data-feather="arrow-down"></span>
-                        </div>
-                    {% else %}
-                        <div>
-                            <span class="text-success mr-4" data-feather="arrow-up"></span>
-                            <span class="lead text-muted text-uppercase" style="font-size: 15px;">{{ movimento.entrada.descricao }}</span>
-                        </div>
-                        <div>
-                            <span class="lead text-success" style="font-size: 16px;">R$ {{ movimento.entrada.valor }}</span>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
- 
+<div class="col-12 float-left px-2 mt-4 col-lg-4">
+	<div class=" mb-3">
+		<h3 class="lead text-muted">Últimos Movimentos</h3>
+	</div>
+	{% for movimento in movimentos %}
+	<div class="card mb-3 mb-lg-2 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-{{ 'success' if movimento.tipo =='entrada' else 'danger' }}">
+		<div class="card-body py-3 d-flex justify-content-between align-items-center">
+			{% if movimento.tipo == 'saida' %}
+			<div>
+				<span class="lead text-danger" style="font-size: 16px;">R$ -{{ movimento.saida.valor }}</span>
+			</div>
+			<div>
+				<span class="lead text-muted text-uppercase"
+					style="font-size: 15px;">{{ movimento.saida.categoria.titulo }}</span>
+				<span class="text-danger ml-4" data-feather="arrow-down"></span>
+			</div>
+			{% else %}
+			<div>
+				<span class="text-success mr-4" data-feather="arrow-up"></span>
+				<span class="lead text-muted text-uppercase" style="font-size: 15px;">{{ movimento.entrada.descricao }}</span>
+			</div>
+			<div>
+				<span class="lead text-success" style="font-size: 16px;">R$ {{ movimento.entrada.valor }}</span>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
 {% endblock %}
