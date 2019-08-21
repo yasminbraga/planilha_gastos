@@ -20,3 +20,8 @@
 .border-left-3{
     border-left-width: 3px !important;
 }
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}

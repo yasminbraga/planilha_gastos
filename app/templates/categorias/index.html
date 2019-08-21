@@ -10,14 +10,16 @@
 {% block link_new %}
     <a class="btn btn-sm btn-primary" href="{{ url_for('new_categoria')}}">
         <span data-feather="plus"></span>
-        Nova Categoria
+        <span class="d-none d-md-inline">
+            Nova Categoria
+        </span>
     </a>
 {% endblock %}
 
 
 {% block content %}
     {% for categoria in categorias %}
-        <div class="card float-left mb-3 ml-4" style="width: 12rem">
+        <div class="card mt-2 float-left mb-3 col-12 col-md-3 mr-md-2 col-lg-2">
             <div class="card-body">
                 <div class="card-title">
                     <span data-feather="tag"></span>

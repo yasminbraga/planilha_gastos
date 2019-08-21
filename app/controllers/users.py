@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, session
 from app import app, db
 from app.models.models import User
 from app.forms.user import UserForm, EditUserForm
@@ -13,6 +13,7 @@ def index_users():
 
 @app.route('/users/new', methods=['GET', 'POST'])
 def new_users():
+    if session.get('logged_in'): return redirect(url_for('index_dashboard'))
     form = UserForm(request.form)
     if request.method == 'POST':
         if form.validate():

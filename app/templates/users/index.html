@@ -7,12 +7,14 @@
 {% block link_new %}
     <a class="btn btn-sm btn-primary" href="{{ url_for('new_users')}}">
         <span data-feather="plus"></span>
-        Novo Usuario
+        <span class="d-none d-md-inline">
+            Novo Usuario
+        </span>
     </a>
 {% endblock %}
 
 {% block content %}
-    <table class="table table-light table-bordered">
+    <table class="table table-light table-responsive table-bordered">
         <thead class="thead-light">
             <th class="text-center">Nome</th>
             <th class="text-left">Email</th>

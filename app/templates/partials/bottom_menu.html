@@ -1,0 +1,25 @@
+<div class="bg-white shadow-sm fixed-bottom d-md-none">
+    <ul class="nav justify-content-center font-16">
+        <li class="nav-item">
+        <a class="nav-link" href="{{url_for('index_dashboard')}}">
+            <span class="text-primary menu-icon" data-feather="bar-chart-2"></span>
+            <span class="sr-only">(atual)</span>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{url_for('index_categorias')}}">
+            <span class="text-warning menu-icon" data-feather="tag"></span>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{url_for('index_entradas')}}">
+            <span class="text-success menu-icon" data-feather="arrow-up"></span>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{url_for('index_saidas')}}">
+            <span class="text-danger menu-icon" data-feather="arrow-down"></span>
+        </a>
+        </li>
+    </ul>
+</div>

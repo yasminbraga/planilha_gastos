@@ -18,6 +18,7 @@ def login_required(func):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if session.get('logged_in'): return redirect(url_for('index_dashboard'))
     form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate():

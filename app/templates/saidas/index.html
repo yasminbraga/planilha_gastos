@@ -7,12 +7,14 @@
 {% block link_new %}
     <a class="btn btn-sm btn-primary" href="{{ url_for('new_saidas')}}">
         <span data-feather="plus"></span>
-        Nova Saida
+        <span class="d-none d-md-inline">
+            Nova Saida
+        </span>
     </a>
 {% endblock %}
 
 {% block content %}
-    <table class="table table-light table-bordered">
+    <table class="table table-light table-sm table-bordered">
         <thead class="thead-light">
             <th class="text-center">Data</th>
             <th class="text-left">Descricao</th>
