@@ -34,7 +34,9 @@
             {% block content %}{% endblock %}
           </div>
         </main>
-        {% include './partials/bottom_menu.html' %}
+        {% if session.logged_in %}
+          {% include './partials/bottom_menu.html' %}
+        {% endif %}
       </div>
     </div>
     <!-- Ícones -->
