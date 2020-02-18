@@ -15,7 +15,7 @@ def login_required(func):
         return func(*args, **kwargs)
     return wrapper
 
-
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if session.get('logged_in'): return redirect(url_for('index_dashboard'))

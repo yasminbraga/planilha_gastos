@@ -12,4 +12,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 
-from app.controllers import dashboard, categorias, saidas, entradas, users, home
+from app.controllers import dashboard, categorias, saidas, entradas, users

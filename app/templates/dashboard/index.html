@@ -68,10 +68,44 @@
 	</div>
 </div>
 
-<div class="col-12 float-left col-md-8 p-0">
+<div class="col-12 col-md-8 px-2 float-left rounded shadow-sm bg-white">
+	<canvas id="saidas-categorias-chart"></canvas>
+</div>
+
+<div class="col-12 float-left py-0 pl-4 mt-1 col-md-4 col-lg-4">
+		<div class=" mb-3">
+			<h3 class="lead text-muted">Últimos Movimentos</h3>
+		</div>
+		{% for movimento in movimentos %}
+		<div class="card mb-3 mb-lg-2 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-{{ 'success' if movimento.tipo =='entrada' else 'danger' }}">
+			<div class="card-body py-3 d-flex justify-content-between align-items-center">
+				{% if movimento.tipo == 'saida' %}
+				<div>
+					<span class="lead text-danger" style="font-size: 16px;">R$ -{{ movimento.saida.valor }}</span>
+				</div>
+				<div>
+					<span class="lead text-muted text-uppercase"
+						style="font-size: 15px;">{{ movimento.saida.categoria.titulo }}</span>
+					<span class="text-danger ml-4" data-feather="arrow-down"></span>
+				</div>
+				{% else %}
+				<div>
+					<span class="text-success mr-4" data-feather="arrow-up"></span>
+					<span class="lead text-muted text-uppercase" style="font-size: 15px;">{{ movimento.entrada.descricao }}</span>
+				</div>
+				<div>
+					<span class="lead text-success" style="font-size: 16px;">R$ {{ movimento.entrada.valor }}</span>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+</div>
+
+<div class="col-12 float-left p-0 mt-3">
 	<h3 class="lead text-muted">Total por Categoria</h3>
 	{% for saida_categoria in saidas_categoria %}
-	<div class="card col-12 float-left col-md-3 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-warning mr-2 mb-2 w-100 w-lg-25" style="width: 14rem;">
+	<div class="card col-12 float-left col-md-2 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-warning mr-2 mb-2 w-100 w-lg-25" style="width: 14rem;">
 		<div class="card-body px-2">
 			<div class="d-flex justify-content-between">
 				<span class="text-muted text-uppercase">{{ saida_categoria[0] }}</span>
@@ -90,34 +124,46 @@
 </div>
 
 
-<div class="col-12 float-left px-2 mt-4 col-md-4 col-lg-4">
-	<div class=" mb-3">
-		<h3 class="lead text-muted">Últimos Movimentos</h3>
-	</div>
-	{% for movimento in movimentos %}
-	<div class="card mb-3 mb-lg-2 shadow-sm border-right-0 border-bottom-0 border-top-0 border-left-3 border-{{ 'success' if movimento.tipo =='entrada' else 'danger' }}">
-		<div class="card-body py-3 d-flex justify-content-between align-items-center">
-			{% if movimento.tipo == 'saida' %}
-			<div>
-				<span class="lead text-danger" style="font-size: 16px;">R$ -{{ movimento.saida.valor }}</span>
-			</div>
-			<div>
-				<span class="lead text-muted text-uppercase"
-					style="font-size: 15px;">{{ movimento.saida.categoria.titulo }}</span>
-				<span class="text-danger ml-4" data-feather="arrow-down"></span>
-			</div>
-			{% else %}
-			<div>
-				<span class="text-success mr-4" data-feather="arrow-up"></span>
-				<span class="lead text-muted text-uppercase" style="font-size: 15px;">{{ movimento.entrada.descricao }}</span>
-			</div>
-			<div>
-				<span class="lead text-success" style="font-size: 16px;">R$ {{ movimento.entrada.valor }}</span>
-			</div>
-			{% endif %}
-		</div>
-	</div>
-	{% endfor %}
-</div>
+
+
+<script>
+	var ctx = document.getElementById('saidas-categorias-chart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				backgroundColor: [
+					'rgba(220, 99, 132, 0)',
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 2)',
+				],
+				borderWidth: 3,
+				pointBackgroundColor: 'rgba(255, 99, 132, 2)',
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					gridLines:false,
+					ticks: {
+						display:false,
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					gridLines: false,
+					ticks: {
+						display:false,
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+</script>
 
 {% endblock %}
